@@ -37,3 +37,11 @@ func InputEmpty(input any, current any) {
 		reflect.ValueOf(current).Elem().Set(val)
 	}
 }
+
+func ConvertToInt32Pointer(a int32) *int32 {
+	if a == 0 {
+		return nil
+	}
+	v := int32(a)
+	return &v
+}

@@ -1,0 +1,65 @@
+{
+  "level": "warn",
+  "method": "POST",
+  "path": "/api/v1/user",
+  "query": "",
+  "status": 400,
+  "duration_ms": 59,
+  "clientIP": "::1",
+  "userAgent": "PostmanRuntime/7.51.1",
+  "request": {
+    "email": "thuanbaka12345f6cgsdcsdsdsdsfcdscfdscdssfw2s32@gmail.com",
+    "level": 1,
+    "name": "Thuận",
+    "password": "Thuan2005@",
+    "status": 1
+  },
+  "response": {
+    "err": {
+        
+      "Err": {
+        "Code": "23505",
+        "ColumnName": "",
+        "ConstraintName": "users_user_email_key",
+        "DataTypeName": "",
+        "Detail": "Key (user_email)=(thuanbaka12345f6cgsdcsdsdsdsfcdscfdscdssfw2s32@gmail.com) already exists.",
+        "File": "nbtinsert.c",
+        "Hint": "",
+        "InternalPosition": 0,
+        "InternalQuery": "",
+        "Line": 666,
+        "Message": "duplicate key value violates unique constraint \"users_user_email_key\"",
+        "Position": 0,
+        "Routine": "_bt_check_unique",
+        "SchemaName": "public",
+        "Severity": "ERROR",
+        "SeverityUnlocalized": "ERROR",
+        "TableName": "users",
+        "Where": ""
+      }
+    }
+  },
+  "time": "2026-07-26T17:09:36+07:00",
+  "message": "HTTP Request Log"
+}
+{"level":"warn","method":"PUT","path":"/api/v1/user/effc41c0-1b0b-4d25-a61c-0713bb019b38","query":"","status":400,"duration_ms":19,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"full_name":"           Teo","status":1,"uuid":"01509ac1-7643-457a-ae08-579a2b525d73"},"response":{"err":{"Err":{}}},"time":"2026-08-25T00:54:12+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"PUT","path":"/api/v1/user/e296d7a2-5b88-4624-a890-590812b1d1d","query":"","status":400,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":23,"level":2,"name":"   Teo1","status":2},"response":{"err":{"uuid":"uuid phải đúng định dạng uuid."}},"time":"2026-08-25T14:48:22+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"PUT","path":"/api/v1/user/e296d7a2-5b88-4624-a890-590812b1d1d6","query":"","status":400,"duration_ms":6,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":23,"level":2,"name":"   Teo1","status":2},"response":{"err":{"Err":{}}},"time":"2026-08-25T14:48:29+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"DELETE","path":"/api/v1/user/softdeleteuser/49452cb7-90f8-4847-8a19-fb71a9ad03a2","query":"","status":404,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"email":"thuanbaka12345f67891036d114sfw232@gmail.com","full_name":"           Teo","level":"admin","status":"show","uuid":"75b4c82f-16a5-429b-9715-2302e740ad12"},"response":"","time":"2026-08-25T22:54:21+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"DELETE","path":"/api/v1/user/softdeleteuser/49452cb7-90f8-4847-8a19-fb71a9ad03a2","query":"","status":404,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"email":"thuanbaka12345f67891036d114sfw232@gmail.com","full_name":"           Teo","level":"admin","status":"show","uuid":"75b4c82f-16a5-429b-9715-2302e740ad12"},"response":"","time":"2026-08-25T22:56:36+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"DELETE","path":"/api/v1/user/softdeleteuser/49452cb7-90f8-4847-8a19-fb71a9ad03a2","query":"","status":404,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"email":"thuanbaka12345f67891036d114sfw232@gmail.com","full_name":"           Teo","level":"admin","status":"show","uuid":"75b4c82f-16a5-429b-9715-2302e740ad12"},"response":"","time":"2026-08-25T23:13:58+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"DELETE","path":"/api/v1/user/softdeleteuser/26ed3474-99d7-4da9-b433-47d1d9e9a922","query":"","status":404,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"email":"thuanbaka12345f67891036d114sfw232@gmail.com","full_name":"           Teo","level":"admin","status":"show","uuid":"75b4c82f-16a5-429b-9715-2302e740ad12"},"response":"","time":"2026-08-27T15:21:45+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"DELETE","path":"/api/v1/user/recoveruser/49452cb7-90f8-4847-8a19-fb71a9ad03a2","query":"","status":404,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"email":"thuanbaka12345f67891036d114sfw232@gmail.com","full_name":"           Teo","level":"admin","status":"show","uuid":"75b4c82f-16a5-429b-9715-2302e740ad12"},"response":"","time":"2026-08-28T15:40:32+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"PUT","path":"/api/v1/user/49452cb7-90f8-4847-8a19-fb71a9ad03a2","query":"","status":400,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"age":21,"email":"thuanbaka12345f67891036d114sfw232@gmail.com","full_name":"           Teo","level":"admin","status":"show","uuid":"75b4c82f-16a5-429b-9715-2302e740ad12"},"response":{"err":{"Field":"status","Offset":229,"Struct":"UserInputUpdateDTO","Type":{},"Value":"string"}},"time":"2026-08-28T16:10:04+07:00","message":"HTTP Request Log"}
+{"level":"error","method":"GET","path":"/api/v1/user","query":"","status":500,"duration_ms":2,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"code":"INTERNAL_SERVER","message":"Please try again later."},"time":"2026-09-04T20:25:55+07:00","message":"HTTP Request Log"}
+{"level":"error","method":"GET","path":"/api/v1/user","query":"","status":500,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"code":"INTERNAL_SERVER","message":"Please try again later."},"time":"2026-09-04T20:26:27+07:00","message":"HTTP Request Log"}
+{"level":"error","method":"GET","path":"/api/v1/user","query":"","status":500,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"code":"INTERNAL_SERVER","message":"Please try again later."},"time":"2026-09-04T20:26:55+07:00","message":"HTTP Request Log"}
+{"level":"error","method":"GET","path":"/api/v1/user","query":"","status":500,"duration_ms":49,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"code":"INTERNAL_SERVER","message":"Please try again later."},"time":"2026-09-29T02:44:54+07:00","message":"HTTP Request Log"}
+{"level":"error","method":"GET","path":"/api/v1/user","query":"","status":500,"duration_ms":18,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"code":"INTERNAL_SERVER","message":"Please try again later."},"time":"2026-09-29T02:45:14+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"GET","path":"/api/v1/user","query":"search=Thu%E1%BA%ADn","status":400,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"err":{"search":"search phải đúng định dạng search."}},"time":"2026-09-30T00:13:22+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"GET","path":"/api/v1/user","query":"search=Thu%E1%BA%ADn","status":400,"duration_ms":0,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{},"response":{"err":{"search":"search phải đúng định dạng search."}},"time":"2026-09-30T00:14:09+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"POST","path":"/api/v1/user","query":"","status":400,"duration_ms":60,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"email":"thuanbaka12345f6ssdsdddsd32@gmail.com","level":1,"name":"B","password":"Thuan2005@","status":1},"response":{"err":{"Err":{"Code":"23505","ColumnName":"","ConstraintName":"users_user_email_key","DataTypeName":"","Detail":"Key (user_email)=(thuanbaka12345f6ssdsdddsd32@gmail.com) already exists.","File":"nbtinsert.c","Hint":"","InternalPosition":0,"InternalQuery":"","Line":666,"Message":"duplicate key value violates unique constraint \"users_user_email_key\"","Position":0,"Routine":"_bt_check_unique","SchemaName":"public","Severity":"ERROR","SeverityUnlocalized":"ERROR","TableName":"users","Where":""}}},"time":"2026-09-30T00:15:35+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"POST","path":"/api/v1/user","query":"","status":400,"duration_ms":59,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"email":"thuanbaka1234d5fdd2@gmail.com","level":1,"name":"p","password":"Thuan2005@","status":1},"response":{"err":{"Err":{"Code":"23505","ColumnName":"","ConstraintName":"users_user_email_key","DataTypeName":"","Detail":"Key (user_email)=(thuanbaka1234d5fdd2@gmail.com) already exists.","File":"nbtinsert.c","Hint":"","InternalPosition":0,"InternalQuery":"","Line":666,"Message":"duplicate key value violates unique constraint \"users_user_email_key\"","Position":0,"Routine":"_bt_check_unique","SchemaName":"public","Severity":"ERROR","SeverityUnlocalized":"ERROR","TableName":"users","Where":""}}},"time":"2026-09-30T00:17:36+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"POST","path":"/api/v1/user","query":"","status":400,"duration_ms":57,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"email":"thuanbaka12f3df4fdf5fdd2@gmail.com","level":1,"name":"p","password":"Thuan2005@","status":1},"response":{"err":{"Err":{"Code":"23505","ColumnName":"","ConstraintName":"users_user_email_key","DataTypeName":"","Detail":"Key (user_email)=(thuanbaka12f3df4fdf5fdd2@gmail.com) already exists.","File":"nbtinsert.c","Hint":"","InternalPosition":0,"InternalQuery":"","Line":666,"Message":"duplicate key value violates unique constraint \"users_user_email_key\"","Position":0,"Routine":"_bt_check_unique","SchemaName":"public","Severity":"ERROR","SeverityUnlocalized":"ERROR","TableName":"users","Where":""}}},"time":"2026-09-30T00:27:15+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"POST","path":"/api/v1/user","query":"","status":400,"duration_ms":57,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"email":"thuanbaka12f3df4sddsfdddfdd2@gmail.com","level":1,"name":"p","password":"Thuan2005@","status":1},"response":{"err":{"Err":{"Code":"23505","ColumnName":"","ConstraintName":"users_user_email_key","DataTypeName":"","Detail":"Key (user_email)=(thuanbaka12f3df4sddsfdddfdd2@gmail.com) already exists.","File":"nbtinsert.c","Hint":"","InternalPosition":0,"InternalQuery":"","Line":666,"Message":"duplicate key value violates unique constraint \"users_user_email_key\"","Position":0,"Routine":"_bt_check_unique","SchemaName":"public","Severity":"ERROR","SeverityUnlocalized":"ERROR","TableName":"users","Where":""}}},"time":"2026-09-30T00:28:24+07:00","message":"HTTP Request Log"}
+{"level":"warn","method":"POST","path":"/api/v1/user","query":"","status":400,"duration_ms":59,"clientIP":"::1","userAgent":"PostmanRuntime/7.51.1","request":{"email":"thuanbaka12f3df4sdddfgsfdfggdfffddddfdd2@gmail.com","level":1,"name":"p","password":"Thuan2005@","status":1},"response":{"err":{"Err":{"Code":"23505","ColumnName":"","ConstraintName":"users_user_email_key","DataTypeName":"","Detail":"Key (user_email)=(thuanbaka12f3df4sdddfgsfdfggdfffddddfdd2@gmail.com) already exists.","File":"nbtinsert.c","Hint":"","InternalPosition":0,"InternalQuery":"","Line":666,"Message":"duplicate key value violates unique constraint \"users_user_email_key\"","Position":0,"Routine":"_bt_check_unique","SchemaName":"public","Severity":"ERROR","SeverityUnlocalized":"ERROR","TableName":"users","Where":""}}},"time":"2026-09-30T00:29:00+07:00","message":"HTTP Request Log"}

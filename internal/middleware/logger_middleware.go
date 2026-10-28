@@ -122,41 +122,15 @@ func LoggingMiddleware(httpLogger *zerolog.Logger) gin.HandlerFunc {
 			logInfo = httpLogger.Warn()
 		}
 		logInfo.
-			Interface("header", ctx.Request.Header).
 			Str("method", ctx.Request.Method).
-			Str("host", ctx.Request.Host).
-			Str("protocol", ctx.Request.Proto).
-			Str("pattern", ctx.Request.Pattern).
-			Str("requestURI", ctx.Request.RequestURI).
-			Str("remoteAddr", ctx.Request.RemoteAddr).
-			Str("referer", ctx.Request.Referer()).
-			Str("userAgent", ctx.Request.UserAgent()).
-			Interface("form", ctx.Request.Form).
-			Interface("postForm", ctx.Request.PostForm).
-			Interface("trailer", ctx.Request.Trailer).
-			Interface("parseForm", ctx.Request.ParseForm()).
-			Interface("cookies", ctx.Request.Cookies()).
-			Interface("context", ctx.Request.Context()).
-			Interface("URL", ctx.Request.URL).
-			Interface("TLS", ctx.Request.TLS).
-			Int("protoMinor", ctx.Request.ProtoMinor).
-			Interface("multipartForm", ctx.Request.MultipartForm).
-			Interface("getBody", ctx.Request.GetBody).
-			Int64("contentLength", ctx.Request.ContentLength).
-			Str("scheme", ctx.Request.URL.Scheme).
-			Str("opaque", ctx.Request.URL.Opaque).
-			Str("URL_host", ctx.Request.URL.Host).
-			Str("URL_rawQuery", ctx.Request.URL.RawQuery).
-			Str("URL_RawPath", ctx.Request.URL.RawPath).
-			Str("URL_fragment", ctx.Request.URL.RawFragment).
-			Str("URL_hostName", ctx.Request.URL.Hostname()).
+			Str("path", ctx.Request.URL.Path).
+			Str("query", ctx.Request.URL.RawQuery).
 			Int("status", ctx.Writer.Status()).
-			Int64("duration_time", duration.Microseconds()).
-			Interface("TransferEncoding", ctx.Request.TransferEncoding).
-			Interface("Trailer", ctx.Request.Trailer).
+			Int64("duration_ms", duration.Milliseconds()).
+			Str("clientIP", ctx.ClientIP()).
+			Str("userAgent", ctx.Request.UserAgent()).
 			Interface("request", requestBody).
 			Interface("response", response).
-			Str("clientIP", ctx.ClientIP()).
 			Msg("HTTP Request Log")
 	}
 }

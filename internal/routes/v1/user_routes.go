@@ -23,7 +23,8 @@ func (ur *RoutesUser) Register(r *gin.RouterGroup) {
 		user.POST("", ur.handlerUser.PostUser)
 		user.GET("/:uuid", ur.handlerUser.GetUserByUUID)
 		user.PUT("/:uuid", ur.handlerUser.PutUser)
+		user.PUT("/recoveruser/:uuid", ur.handlerUser.RecoverUser)
 		user.DELETE("/:uuid", ur.handlerUser.DeleteUser)
-		user.GET("/panic", ur.handlerUser.Panic)
+		user.DELETE("/softdeleteuser/:uuid", ur.handlerUser.SoftDeleteUser)
 	}
 }

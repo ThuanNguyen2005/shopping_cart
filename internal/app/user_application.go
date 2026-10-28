@@ -12,9 +12,9 @@ type UserModule struct {
 	routes routes.Routers
 }
 
-func NewUserModule() Module {
+func NewUserModule(ctx *ModuleContext) Module {
 	//initial repository
-	repoUser := repository.NewInMemoryRepository()
+	repoUser := repository.NewInMemoryRepository(ctx.DB)
 
 	//initial service
 	serviceUser := v1service.NewServiceUser(repoUser)

@@ -11,6 +11,8 @@ import (
 	"time"
 
 	"23.usersapi/internal/config"
+	"23.usersapi/internal/db"
+	"23.usersapi/internal/db/sqlc"
 	"23.usersapi/internal/middleware"
 	"23.usersapi/internal/routes"
 	"23.usersapi/internal/validation"
@@ -27,13 +29,23 @@ type Application struct {
 	router *gin.Engine
 }
 
+type ModuleContext struct {
+	DB sqlc.Querier
+}
+
 func NewApplication(cfg *config.Config) *Application {
 	go middleware.CleanUpClient()
 	validation.InitialValidation()
 	r := gin.Default()
+	if err := db.InitDB(); err != nil {
+		log.Fatal("failed to connect database.")
+	}
+	ctx := &ModuleContext{
+		DB: db.DB,
+	}
 
 	modules := []Module{
-		NewUserModule(),
+		NewUserModule(ctx),
 	}
 
 	routes.RegisterAllRouter(r, getRoutes(modules)...)

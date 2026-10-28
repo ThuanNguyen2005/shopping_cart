@@ -12,41 +12,399 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO Users (name, email) VALUES ($1, $2) RETURNING userid, uuid, name, email, create_at
+INSERT INTO users (user_name, user_email, user_password, user_age, user_status, user_level) 
+VALUES ($1, $2, $3, $4, $5, $6) 
+RETURNING user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
 `
 
 type CreateUserParams struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	UserName     string `json:"user_name"`
+	UserEmail    string `json:"user_email"`
+	UserPassword string `json:"user_password"`
+	UserAge      *int32 `json:"user_age"`
+	UserStatus   int32  `json:"user_status"`
+	UserLevel    int32  `json:"user_level"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
-	row := q.db.QueryRow(ctx, createUser, arg.Name, arg.Email)
+	row := q.db.QueryRow(ctx, createUser,
+		arg.UserName,
+		arg.UserEmail,
+		arg.UserPassword,
+		arg.UserAge,
+		arg.UserStatus,
+		arg.UserLevel,
+	)
 	var i User
 	err := row.Scan(
-		&i.Userid,
-		&i.Uuid,
-		&i.Name,
-		&i.Email,
+		&i.UserID,
+		&i.UserUuid,
+		&i.UserName,
+		&i.UserEmail,
+		&i.UserPassword,
+		&i.UserAge,
+		&i.UserStatus,
+		&i.UserLevel,
 		&i.CreateAt,
+		&i.UpdateAt,
+		&i.DeleteAt,
 	)
 	return i, err
 }
 
-const getUser = `-- name: GetUser :one
-SELECT userid, uuid, name, email, create_at FROM Users
-WHERE uuid = $1
+const deleteUser = `-- name: DeleteUser :one
+DELETE FROM users
+WHERE 
+    user_uuid=$1
+RETURNING user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
 `
 
-func (q *Queries) GetUser(ctx context.Context, argUuid uuid.UUID) (User, error) {
-	row := q.db.QueryRow(ctx, getUser, argUuid)
+func (q *Queries) DeleteUser(ctx context.Context, userUuid uuid.UUID) (User, error) {
+	row := q.db.QueryRow(ctx, deleteUser, userUuid)
 	var i User
 	err := row.Scan(
-		&i.Userid,
-		&i.Uuid,
-		&i.Name,
-		&i.Email,
+		&i.UserID,
+		&i.UserUuid,
+		&i.UserName,
+		&i.UserEmail,
+		&i.UserPassword,
+		&i.UserAge,
+		&i.UserStatus,
+		&i.UserLevel,
 		&i.CreateAt,
+		&i.UpdateAt,
+		&i.DeleteAt,
 	)
 	return i, err
+}
+
+const listUsersCreateAtASC = `-- name: ListUsersCreateAtASC :many
+SELECT user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+FROM users
+WHERE delete_at IS NULL
+AND(
+    $3::TEXT IS NULL
+    OR $3::TEXT=''
+    OR user_name ILIKE '%'|| $3 ||'%'
+    OR user_email ILIKE '%'|| $3 ||'%'
+)
+ORDER By create_at
+LIMIT $1 OFFSET $2
+`
+
+type ListUsersCreateAtASCParams struct {
+	Limit  int32   `json:"limit"`
+	Offset int32   `json:"offset"`
+	Search *string `json:"search"`
+}
+
+func (q *Queries) ListUsersCreateAtASC(ctx context.Context, arg ListUsersCreateAtASCParams) ([]User, error) {
+	rows, err := q.db.Query(ctx, listUsersCreateAtASC, arg.Limit, arg.Offset, arg.Search)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []User{}
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.UserID,
+			&i.UserUuid,
+			&i.UserName,
+			&i.UserEmail,
+			&i.UserPassword,
+			&i.UserAge,
+			&i.UserStatus,
+			&i.UserLevel,
+			&i.CreateAt,
+			&i.UpdateAt,
+			&i.DeleteAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listUsersCreateAtDESC = `-- name: ListUsersCreateAtDESC :many
+SELECT user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+FROM users
+WHERE delete_at IS NULL
+AND(
+    $3::TEXT IS NULL
+    OR $3::TEXT=''
+    OR user_name ILIKE '%'|| $3 ||'%'
+    OR user_email ILIKE '%'|| $3 ||'%'
+)
+ORDER By create_at DESC
+LIMIT $1 OFFSET $2
+`
+
+type ListUsersCreateAtDESCParams struct {
+	Limit  int32   `json:"limit"`
+	Offset int32   `json:"offset"`
+	Search *string `json:"search"`
+}
+
+func (q *Queries) ListUsersCreateAtDESC(ctx context.Context, arg ListUsersCreateAtDESCParams) ([]User, error) {
+	rows, err := q.db.Query(ctx, listUsersCreateAtDESC, arg.Limit, arg.Offset, arg.Search)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []User{}
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.UserID,
+			&i.UserUuid,
+			&i.UserName,
+			&i.UserEmail,
+			&i.UserPassword,
+			&i.UserAge,
+			&i.UserStatus,
+			&i.UserLevel,
+			&i.CreateAt,
+			&i.UpdateAt,
+			&i.DeleteAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listUsersIDASC = `-- name: ListUsersIDASC :many
+SELECT user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+FROM users
+WHERE delete_at IS NULL
+AND(
+    $3::TEXT IS NULL
+    OR $3::TEXT=''
+    OR user_name ILIKE '%'|| $3 ||'%'
+    OR user_email ILIKE '%'|| $3 ||'%'
+)
+ORDER By user_id
+LIMIT $1 OFFSET $2
+`
+
+type ListUsersIDASCParams struct {
+	Limit  int32   `json:"limit"`
+	Offset int32   `json:"offset"`
+	Search *string `json:"search"`
+}
+
+func (q *Queries) ListUsersIDASC(ctx context.Context, arg ListUsersIDASCParams) ([]User, error) {
+	rows, err := q.db.Query(ctx, listUsersIDASC, arg.Limit, arg.Offset, arg.Search)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []User{}
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.UserID,
+			&i.UserUuid,
+			&i.UserName,
+			&i.UserEmail,
+			&i.UserPassword,
+			&i.UserAge,
+			&i.UserStatus,
+			&i.UserLevel,
+			&i.CreateAt,
+			&i.UpdateAt,
+			&i.DeleteAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listUsersIDDESC = `-- name: ListUsersIDDESC :many
+SELECT user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+FROM users
+WHERE delete_at IS NULL
+AND(
+    $3::TEXT IS NULL
+    OR $3::TEXT=''
+    OR user_name ILIKE '%'|| $3 ||'%'
+    OR user_email ILIKE '%'|| $3 ||'%'
+)
+ORDER By user_id DESC
+LIMIT $1 OFFSET $2
+`
+
+type ListUsersIDDESCParams struct {
+	Limit  int32   `json:"limit"`
+	Offset int32   `json:"offset"`
+	Search *string `json:"search"`
+}
+
+func (q *Queries) ListUsersIDDESC(ctx context.Context, arg ListUsersIDDESCParams) ([]User, error) {
+	rows, err := q.db.Query(ctx, listUsersIDDESC, arg.Limit, arg.Offset, arg.Search)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []User{}
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.UserID,
+			&i.UserUuid,
+			&i.UserName,
+			&i.UserEmail,
+			&i.UserPassword,
+			&i.UserAge,
+			&i.UserStatus,
+			&i.UserLevel,
+			&i.CreateAt,
+			&i.UpdateAt,
+			&i.DeleteAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const recoveUser = `-- name: RecoveUser :one
+UPDATE users
+SET 
+    delete_at=NULL
+WHERE 
+    user_uuid=$1 AND delete_at IS NOT NULL
+RETURNING user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+`
+
+func (q *Queries) RecoveUser(ctx context.Context, userUuid uuid.UUID) (User, error) {
+	row := q.db.QueryRow(ctx, recoveUser, userUuid)
+	var i User
+	err := row.Scan(
+		&i.UserID,
+		&i.UserUuid,
+		&i.UserName,
+		&i.UserEmail,
+		&i.UserPassword,
+		&i.UserAge,
+		&i.UserStatus,
+		&i.UserLevel,
+		&i.CreateAt,
+		&i.UpdateAt,
+		&i.DeleteAt,
+	)
+	return i, err
+}
+
+const softDeleteUser = `-- name: SoftDeleteUser :one
+UPDATE users
+SET 
+    delete_at=NOW()
+WHERE 
+    user_uuid=$1 AND delete_at IS NULL
+RETURNING user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+`
+
+func (q *Queries) SoftDeleteUser(ctx context.Context, userUuid uuid.UUID) (User, error) {
+	row := q.db.QueryRow(ctx, softDeleteUser, userUuid)
+	var i User
+	err := row.Scan(
+		&i.UserID,
+		&i.UserUuid,
+		&i.UserName,
+		&i.UserEmail,
+		&i.UserPassword,
+		&i.UserAge,
+		&i.UserStatus,
+		&i.UserLevel,
+		&i.CreateAt,
+		&i.UpdateAt,
+		&i.DeleteAt,
+	)
+	return i, err
+}
+
+const updateUser = `-- name: UpdateUser :one
+UPDATE users 
+SET 
+    user_name = COALESCE($1,user_name),
+    user_password = COALESCE($2,user_password),
+    user_age = COALESCE($3,user_age),
+    user_status = COALESCE($4,user_status),
+    user_level = COALESCE($5,user_level)
+WHERE 
+    user_uuid=$6 AND delete_at IS NULL
+RETURNING user_id, user_uuid, user_name, user_email, user_password, user_age, user_status, user_level, create_at, update_at, delete_at
+`
+
+type UpdateUserParams struct {
+	UserName     *string   `json:"user_name"`
+	UserPassword *string   `json:"user_password"`
+	UserAge      *int32    `json:"user_age"`
+	UserStatus   *int32    `json:"user_status"`
+	UserLevel    *int32    `json:"user_level"`
+	UserUuid     uuid.UUID `json:"user_uuid"`
+}
+
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
+	row := q.db.QueryRow(ctx, updateUser,
+		arg.UserName,
+		arg.UserPassword,
+		arg.UserAge,
+		arg.UserStatus,
+		arg.UserLevel,
+		arg.UserUuid,
+	)
+	var i User
+	err := row.Scan(
+		&i.UserID,
+		&i.UserUuid,
+		&i.UserName,
+		&i.UserEmail,
+		&i.UserPassword,
+		&i.UserAge,
+		&i.UserStatus,
+		&i.UserLevel,
+		&i.CreateAt,
+		&i.UpdateAt,
+		&i.DeleteAt,
+	)
+	return i, err
+}
+
+const userTotal = `-- name: UserTotal :one
+SELECT COUNT(1)
+FROM users
+WHERE delete_at IS NULL
+AND(
+    $1::TEXT IS NULL
+    OR $1::TEXT=''
+    OR user_name ILIKE '%'|| $1 ||'%'
+    OR user_email ILIKE '%'|| $1 ||'%'
+)
+`
+
+func (q *Queries) UserTotal(ctx context.Context, search *string) (int64, error) {
+	row := q.db.QueryRow(ctx, userTotal, search)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
 }

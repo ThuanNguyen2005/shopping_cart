@@ -12,7 +12,15 @@ import (
 
 type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
-	GetUser(ctx context.Context, argUuid uuid.UUID) (User, error)
+	DeleteUser(ctx context.Context, userUuid uuid.UUID) (User, error)
+	ListUsersCreateAtASC(ctx context.Context, arg ListUsersCreateAtASCParams) ([]User, error)
+	ListUsersCreateAtDESC(ctx context.Context, arg ListUsersCreateAtDESCParams) ([]User, error)
+	ListUsersIDASC(ctx context.Context, arg ListUsersIDASCParams) ([]User, error)
+	ListUsersIDDESC(ctx context.Context, arg ListUsersIDDESCParams) ([]User, error)
+	RecoveUser(ctx context.Context, userUuid uuid.UUID) (User, error)
+	SoftDeleteUser(ctx context.Context, userUuid uuid.UUID) (User, error)
+	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
+	UserTotal(ctx context.Context, search *string) (int64, error)
 }
 
 var _ Querier = (*Queries)(nil)

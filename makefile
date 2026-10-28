@@ -3,13 +3,19 @@ export
 
 MIGRATION_DIR=internal/db/Migrations
 
-CONN_STRING=postgresql://$(USERNAME_DB):$(PASSWORD_DB)@$(HOST):$(PORT)/$(NAME_DB)?sslmode=$(SSMODE)
+CONN_STRING=postgresql://$(USERNAME_DB):$(PASSWORD_DB)@$(HOST):$(PORT)/$(NAME_DB)?sslmode=$(SSLMODE)
 
 export_db:
 	docker exec -i postgres-db pg_dump -U root -d master-golang >.backupdb-master-golang.sql
 
 import_db:
 	docker exec -i postgres-db psql -U root -d master-golang < .backupdb-master-golang.sql
+
+server: 
+	go run d:\go\30.project_shopping_cart\cmd\api\main.go
+
+sqlc:
+	sqlc generate 
 
 migrate_create:
 	migrate create -ext sql -dir $(MIGRATION_DIR) -seq $(NAME)
@@ -32,4 +38,4 @@ migrate-goto:
 migrate-down-n:
 	migrate -path $(MIGRATION_DIR) -database $(CONN_STRING) down $(N)
 
-.PHONY: export_db export_db migrate_create
+.PHONY: export_db export_db migrate_create server
